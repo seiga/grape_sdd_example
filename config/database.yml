@@ -20,6 +20,9 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV.fetch("API_PG_USER") { "postgres" } %>
+  password: <%= ENV.fetch("API_PG_PASS") { "" } %>
+  host: <%= ENV.fetch("API_PG_HOST") { "localhost" } %>
 
 development:
   <<: *default
