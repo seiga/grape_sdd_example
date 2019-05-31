@@ -1,0 +1,56 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/app
+    docker:
+      - image: circleci/ruby:2.6.3
+        environment:
+          RAILS_ENV: test
+          TZ: /usr/share/zoneinfo/Asia/Tokyo
+          CIRCLE_TEST_REPORTS: /tmp/test-results
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          API_PG_USER: pguser
+          API_PG_PASS: pgpass
+          API_PG_HOST: 127.0.0.1
+      - image: circleci/postgres:11.2-alpine
+        environment:
+          POSTGRES_USER: pguser
+          POSTGRES_DB: grape_sdd_example_test
+          POSTGRES_PASSWORD: pgpass
+    steps:
+      - checkout
+
+      - restore_cache:
+          name: 依存関係をキャッシュから取得
+          keys:
+            - workup_api-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - workup_api-bundle-v2-
+
+      - run:
+          name: 依存関係のインストール
+          command: bundle check || bundle install
+
+      # Store bundle cache
+      - save_cache:
+          name: 依存関係をキャッシュに保存
+          key: workup_api-bundle-v2-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: DB の初期化
+          command: |
+            bundle exec rake db:create
+            bundle exec rake db:schema:load
+
+      - run:
+          name: RSpec によるテスト
+          command: |
+            mkdir tmp/test-results
+            bundle exec rspec
+
+      - store_test_results:
+          name: Rspec によるテスト結果格納
+          path: tmp/test-results
