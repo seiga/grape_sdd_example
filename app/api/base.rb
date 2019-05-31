@@ -2,6 +2,8 @@ require 'grape-swagger'
 class Base < Grape::API
   format :json
 
+  mount Articles
+
   add_swagger_documentation(
     # api_version: 'v1',
     base_path: '/',
