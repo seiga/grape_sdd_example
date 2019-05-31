@@ -1,24 +1,5 @@
 # README
+こちらはGrapeエコシステムを用いたSchema-Driven-Developmentの実演のためのリポジトリです。
+[チームのWeb API開発を最適化するSchema Driven Developmentの解説と実装例](https://qiita.com/Seiga/items/a59c800e57e022125e3b)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[@seiga_hayashi](https://twitter.com/seiga_hayashi)
