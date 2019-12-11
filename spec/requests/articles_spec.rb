@@ -2,7 +2,6 @@ require "rails_helper"
 
 describe '/articles' do
 
-  # TODO: 網羅性が低いのでカバレッジをもっと上げる
   describe 'POST /articles' do
     subject { post '/articles', params: { title: title, content: content } }
 
