@@ -1,6 +1,7 @@
 require "rails_helper"
 
 describe '/articles' do
+
   describe 'POST /articles' do
     subject { post '/articles', params: { title: title, content: content } }
 
