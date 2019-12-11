@@ -17,4 +17,6 @@ class Articles < Grape::API
       present response, with: Entities::ArticleEntity
     end
   end
+
+  # TODO: GET系のAPI追加したい
 end
